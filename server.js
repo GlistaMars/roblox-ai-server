@@ -6,11 +6,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/chat", (req, res) => {
-    const userMessage = req.body.message;
-    const reply = "Ты сказал: " + userMessage;
-    res.json({ reply });
-});
+body: JSON.stringify({
+    model: "gpt-4o-mini",  
+    messages: [
+        { role: "system", content: "Ты NPC в игре Roblox, отвечай коротко и дружелюбно." },
+        { role: "user", content: userMessage }
+    ]
+})
 
 app.get("/", (req, res) => {
     res.send("Server is running");
